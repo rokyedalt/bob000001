@@ -127,13 +127,21 @@ function createTeam() {
 
 function buildTeam() {
     console.log(teamMembers);
+    try {
+        let mainHTML = fs.readFileSync('index.html', 'utf8');
+        let compiledData = ''
+
+        for (let i = 0; i < teamMembers.length; i++) {
+          console.log(i)
+          compiledData += `${teamMembers[i].getTemplatedHtml()}`
+        }
+
+        mainHTML = mainHTML.replace('{{{DUMPINHERE}}}', compiledData)
+        fs.writeFileSync('bobIsYourUncle.html', mainHTML)
+    } catch(e) {
+        console.log('Error:', e.stack);
+    }
 }
-// 
-
-
-
-
-
 
 function fillHTML() {
     console.log(userInfo);
